@@ -68,6 +68,7 @@ for j in range(iteration):
         trust_radius = trust_radius
     
     if np.linalg.norm(grad) < threshold:
+        print("Converged!")
         break
     
     
@@ -92,4 +93,4 @@ plt.colorbar()
 plt.savefig('result.png'.format(j))
 plt.close()
 
-print("Optimization finished.")
+print("exit...")
