@@ -1,5 +1,5 @@
 # TR2DPES
-An implementation of trust radius method for 2D potential surface
+An implementation of trust radius method (dogleg method) for 2D potential surface
 
 ## Requirements
  - python 3.x
