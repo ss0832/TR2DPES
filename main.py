@@ -1,14 +1,16 @@
 import mb_pot
 import derivatives
+import bfgs
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-iteration = 50
+iteration = 500
 threshold = 1e-6
+calcFC = 5
 
 trust_radius = 0.01
-min_trust_radius = 1e-6
+min_trust_radius = 1e-10
 max_trust_radius = 0.3
 
 print("Trust Radius method (Dogleg method) for Muller-Brown potential")
@@ -46,15 +48,21 @@ for j in range(iteration):
             else:
                 print("tau > 1")
                 step = p_U + (tau - 1) * (p_B - p_U)
-
+    old_point = point
     point = point + step
     old_energy = energy
-    old_point = point
+    
+    old_grad = grad
+    old_hess = hessian
     
     energy = mb_pot.muller_brown_potential(point[0], point[1])
     grad = derivatives.grad(mb_pot.muller_brown_potential, point[0], point[1])
-    hessian = derivatives.hess(mb_pot.muller_brown_potential, point[0], point[1])
-    
+    if j % calcFC == 0 or j == 0: 
+        hessian = derivatives.hess(mb_pot.muller_brown_potential, point[0], point[1])
+    else:
+        d_hess = bfgs.BFGS_hessian_update(old_point, point, old_grad, grad, old_hess)
+        hessian = hessian + d_hess
+
     point_list.append(point)
     energy_list.append(energy)
     
@@ -68,7 +76,6 @@ for j in range(iteration):
         trust_radius = trust_radius
     
     if np.linalg.norm(grad) < threshold:
-        print("Converged!")
         break
     
     
@@ -93,4 +100,4 @@ plt.colorbar()
 plt.savefig('result.png'.format(j))
 plt.close()
 
-print("exit...")
+print("Optimization is finished.")
