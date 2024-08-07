@@ -13,4 +13,4 @@ python main.py
 
 ## figure
 
-![result](https://github.com/user-attachments/assets/3c40d012-919d-41c2-a5cc-b4612b161bed)
+![result](https://github.com/user-attachments/assets/2eb91712-ed46-4f7c-81db-b9b65595a7a6)
