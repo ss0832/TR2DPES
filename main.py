@@ -14,7 +14,7 @@ min_trust_radius = 1e-10
 max_trust_radius = 0.3
 
 print("Trust Radius method (Dogleg method) for Muller-Brown potential")
-init_point = np.array([[-1.423499], [-0.928038]]) #initial points
+init_point = np.array([[-1.423499], [-0.928038]]) #initial point
 init_energy = mb_pot.muller_brown_potential(init_point[0], init_point[1])
 init_grad = derivatives.grad(mb_pot.muller_brown_potential, init_point[0], init_point[1])
 init_hess = derivatives.hess(mb_pot.muller_brown_potential, init_point[0], init_point[1])
